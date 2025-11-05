@@ -1,0 +1,7 @@
+streamlit
+python-dotenv
+requests
+transformers
+torch
+pandas
+plotly
