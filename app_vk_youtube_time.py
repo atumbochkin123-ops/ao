@@ -263,7 +263,7 @@ if st.session_state["summary_df"] is not None:
     totals = {
         "Позитив": (round(100 * counts.get("Позитив", 0) / total, 1), counts.get("Позитив", 0), "green"),
         "Нейтрал": (round(100 * counts.get("Нейтрал", 0) / total, 1), counts.get("Нейтрал", 0), "gold"),
-        "Негатив": (round(100 * counts.get("Негатив", 0) / total, 1), counts.get("Негатив", 0), "red"),
+        "Негатив": (round(100 * counts.get("Негатив", 0) / total, 1), counts.get("Негатив", 0), "indianred"),
     }
 
     # три горизонтальные колонки
@@ -310,7 +310,7 @@ if st.session_state["summary_df"] is not None:
     pie_df = pd.DataFrame({"Тональность": list(totals.keys()), "Процент": [v[0] for v in totals.values()]})
     fig = px.pie(
         pie_df, names="Тональность", values="Процент", hole=0.35,
-        color="Тональность", color_discrete_map={"Позитив":"green","Нейтрал":"gold","Негатив":"red"},
+        color="Тональность", color_discrete_map={"Позитив":"green","Нейтрал":"gold","Негатив":"indianred"},
         title="Общая тональность по всем комментариям"
     )
     st.plotly_chart(fig, use_container_width=True)
@@ -321,7 +321,7 @@ if st.session_state["summary_df"] is not None:
     fig2 = px.bar(
         summary_df.melt(id_vars=["Ссылка", "Платформа"], value_vars=["Позитив", "Нейтрал", "Негатив"]),
         x="Ссылка", y="value", color="variable", barmode="stack",
-        color_discrete_map={"Позитив":"green","Нейтрал":"gold","Негатив":"red"},
+        color_discrete_map={"Позитив":"green","Нейтрал":"gold","Негатив":"indianred"},
         labels={"value":"Количество","variable":"Тональность"}
     )
     st.plotly_chart(fig2, use_container_width=True)
@@ -337,7 +337,7 @@ if st.session_state["summary_df"] is not None:
         time_df = tmp.groupby(["Дата_день", "Тональность"]).size().reset_index(name="count")
         fig_time = px.line(
             time_df, x="Дата_день", y="count", color="Тональность",
-            color_discrete_map={"Позитив":"green","Нейтрал":"gold","Негатив":"red"},
+            color_discrete_map={"Позитив":"green","Нейтрал":"gold","Негатив":"indianred"},
             markers=True
         )
         st.plotly_chart(fig_time, use_container_width=True)
